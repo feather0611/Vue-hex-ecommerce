@@ -10,6 +10,7 @@
       <button
         type="button"
         class="close"
+        style="padding-top: 9px"
         @click="removeMessage(i)"
         aria-label="Close"
       >
@@ -53,7 +54,7 @@ export default {
   },
   created() {
     const vm = this;
-    // 自定義名稱 'messsage:push'
+    // 自定義名稱 'message:push'
     // message: 傳入參數
     // status: 樣式，預設值為 warning
     vm.$bus.$on('message:push', (message, status = 'warning') => {

@@ -64,8 +64,8 @@ export default {
           const token = response.data.token;
           const expired = response.data.expired;
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-          // vm.$router.push("/admin/products");
-          this.$bus.$emit("message:push", response.data.message, "success");
+          vm.$router.push("/admin/products");
+          // this.$bus.$emit("message:push", response.data.message, "success");
         } else {
           this.$bus.$emit("message:push", response.data.message, "danger");
         }
