@@ -11,19 +11,19 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/admin/products" active-class="active">
               <i class="fas fa-box"></i>
-              產品列表
+              <span>產品列表</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/admin/orders" active-class="active">
               <i class="fas fa-clipboard-list"></i>
-              訂單列表
+              <span>訂單列表</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/admin/coupon" active-class="active">
               <i class="fas fa-ticket-alt"></i>
-              優惠券
+              <span>優惠券</span>
             </router-link>
           </li>
         </ul>
@@ -45,3 +45,11 @@
     </nav>
   </div>
 </template>
+
+<style scoped>
+i {
+  width: 18px;
+  text-align: center;
+}
+</style>
+

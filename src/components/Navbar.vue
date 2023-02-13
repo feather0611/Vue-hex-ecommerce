@@ -58,7 +58,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 @media (max-width: 768px) {
   .navpad {
     padding-left: 1em;
