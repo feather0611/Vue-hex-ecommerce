@@ -1,6 +1,7 @@
 <template>
   <div>
     <Alert></Alert>
+    <loading :active.sync="loading"></loading>
     <form class="form-signin mt-4" @submit.prevent="signIn">
       <!-- <img
           class="mb-4"
@@ -43,19 +44,15 @@
 </template>
 
 <script>
-import Alert from "../AlertMessage";
-
 export default {
   data() {
     return {
       user: {
         username: "",
         password: ""
-      }
+      },
+      loading: false
     };
-  },
-  components: {
-    Alert
   },
   methods: {
     signIn() {
@@ -72,6 +69,7 @@ export default {
         } else {
           this.$bus.$emit("message:push", response.data.message, "danger");
         }
+        this.loading = false;
       });
     }
   }

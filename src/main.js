@@ -6,6 +6,11 @@ import VueAxios from 'vue-axios';
 
 import "bootstrap";
 
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.min.css";
+
+import Alert from './components/AlertMessage';
+
 import App from './App';
 import router from './router'
 import './bus'
@@ -13,6 +18,9 @@ import './bus'
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios);
 axios.defaults.withCredentials = true;
+
+Vue.component('Loading', Loading);
+Vue.component('Alert', Alert);
 
 /* eslint-disable no-new */
 new Vue({
