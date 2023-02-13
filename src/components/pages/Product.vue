@@ -44,7 +44,7 @@
     </table>
 
     <!-- Pagination -->
-    <Pagination :pagination="pagination" @switch="getProducts"></Pagination>
+    <Pagination :pagination="pagination" @switch="getProducts" v-if="products.length!=0"></Pagination>
 
     <!-- Product Modal -->
     <div
@@ -52,13 +52,13 @@
       id="productModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="productModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content border-0">
           <div class="modal-header bg-dark text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 class="modal-title" id="productModalLabel">
               <span v-if="isNew">新增商品</span>
               <span v-else>編輯商品</span>
             </h5>
@@ -226,13 +226,13 @@
       id="delProductModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="delProductModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content border-0">
           <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 class="modal-title" id="delProductModalLabel">
               <span>刪除商品</span>
             </h5>
             <button
@@ -274,12 +274,7 @@
 <script>
 import $ from "jquery";
 
-import Pagination from "../Pagination";
-
 export default {
-  components: {
-    Pagination
-  },
   data() {
     return {
       products: [],
@@ -298,12 +293,14 @@ export default {
       const vm = this;
       vm.status.isLoading = true;
       this.$http.get(api, vm).then(response => {
+        // console.log(response.data);
         if (response.data.success) {
-          // console.log(response.data);
-          vm.status.isLoading = false;
           vm.products = response.data.products;
           vm.pagination = response.data.pagination;
+        } else {
+          this.$bus.$emit("message:push", response.data.message, "danger");
         }
+        vm.status.isLoading = false;
       });
     },
     openModal(isNew, item) {
@@ -330,33 +327,32 @@ export default {
         httpMethod = "put";
         message = "修改成功";
       }
+      vm.status.isLoading = true;
       this.$http[httpMethod](api, { data: vm.tempProduct }).then(response => {
+        // console.log(response.data);
         if (response.data.success) {
-          // console.log(response.data);
-          $("#productModal").modal("hide");
           this.$bus.$emit("message:push", message, "success");
-          vm.getProducts();
         } else {
-          $("#productModal").modal("hide");
           this.$bus.$emit("message:push", response.data.message, "danger");
-          vm.getProducts();
         }
+        vm.status.isLoading = false;
+        $("#productModal").modal("hide");
+        vm.getProducts();
+
       });
     },
     deleteProduct() {
       const vm = this;
       const api = `${process.env.API_SERVER}/api/${process.env.API_PATH}/admin/product/${vm.tempProduct.id}`;
       this.$http.delete(api, { data: vm.tempProduct }).then(response => {
+        // console.log(response.data);
         if (response.data.success) {
-          // console.log(response.data);
-          $("#delProductModal").modal("hide");
           this.$bus.$emit("message:push", "刪除成功", "success");
-          vm.getProducts();
         } else {
           this.$bus.$emit("message:push", response.data.message, "danger");
-          $("#delProductModal").modal("hide");
-          vm.getProducts();
         }
+        $("#delProductModal").modal("hide");
+        vm.getProducts();
       });
     },
     uploadImg() {
@@ -376,8 +372,6 @@ export default {
         .then(response => {
           // console.log(response.data);
           if (response.data.success) {
-            // vm.tempProduct.imageUrl = response.data.imageUrl;
-            // console.log(vm.tempProduct);
             vm.$set(vm.tempProduct, "image", response.data.imageUrl);
             this.$refs.files.value = null;
             this.$bus.$emit("message:push", "上傳成功", "success");
@@ -389,12 +383,12 @@ export default {
     }
   },
   created() {
-    this.getProducts();
     const hexToken = document.cookie
       .split("; ")
       .find(row => row.startsWith("hexToken="))
       .split("=")[1];
     this.$http.defaults.headers.common.Authorization = hexToken;
+    this.getProducts();
   }
 };
 </script>

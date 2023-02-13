@@ -10,6 +10,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.min.css";
 
 import Alert from "./components/AlertMessage";
+import Pagination from "./components/Pagination"
 
 import App from "./App";
 import router from "./router";
@@ -22,6 +23,7 @@ axios.defaults.withCredentials = true;
 
 Vue.component("Loading", Loading);
 Vue.component("Alert", Alert);
+Vue.component("Pagination", Pagination);
 
 Vue.filter("currency", currencyFilter);
 
