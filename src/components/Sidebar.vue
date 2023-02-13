@@ -11,19 +11,19 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/admin/products" active-class="active">
               <i class="fas fa-box"></i>
-              <span>產品列表</span>
+              產品列表
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/admin/orders" active-class="active">
               <i class="fas fa-clipboard-list"></i>
-              <span>訂單列表</span>
+              訂單列表
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/admin/coupon" active-class="active">
               <i class="fas fa-ticket-alt"></i>
-              <span>優惠券</span>
+              優惠券
             </router-link>
           </li>
         </ul>
