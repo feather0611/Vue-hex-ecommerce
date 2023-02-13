@@ -45,7 +45,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/mockorder">模擬訂單</router-link>
+            <router-link class="nav-link" to="/mockorder" active-class="active">模擬訂單</router-link>
           </li>
         </ul>
         <ul class="navbar-nav mr-3">
