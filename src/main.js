@@ -1,37 +1,37 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
+import Vue from "vue";
+import axios from "axios";
+import VueAxios from "vue-axios";
 
 import "bootstrap";
 
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.min.css";
 
-import Alert from './components/AlertMessage';
+import Alert from "./components/AlertMessage";
 
-import App from './App';
-import router from './router'
-import './bus'
+import App from "./App";
+import router from "./router";
+import "./bus";
 import currencyFilter from "./filters/currency";
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 axios.defaults.withCredentials = true;
 
-Vue.component('Loading', Loading);
-Vue.component('Alert', Alert);
+Vue.component("Loading", Loading);
+Vue.component("Alert", Alert);
 
 Vue.filter("currency", currencyFilter);
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: "#app",
   router,
   components: { App },
-  template: '<App/>'
-})
+  template: "<App/>"
+});
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
