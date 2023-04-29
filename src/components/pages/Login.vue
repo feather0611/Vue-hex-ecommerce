@@ -63,7 +63,7 @@ export default {
         if (response.data.success) {
           const token = response.data.token;
           const expired = response.data.expired;
-          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+          document.cookie = `hexToken=${token}; expires=${new Date(expired)}; SameSite=None;`;
           vm.$router.push("/admin/products");
           // this.$bus.$emit("message:push", response.data.message, "success");
         } else {
