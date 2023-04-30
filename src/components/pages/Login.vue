@@ -58,18 +58,19 @@ export default {
     signIn() {
       const api = `${process.env.API_SERVER}/admin/signin`;
       const vm = this;
-      this.loading = true;
-      this.$http.post(api, vm.user).then(response => {
+      vm.loading = true;
+      vm.$http.post(api, vm.user).then(response => {
         if (response.data.success) {
           const token = response.data.token;
           const expired = response.data.expired;
-          document.cookie = `hexToken=${token}; expires=${new Date(expired)}; SameSite=None;`;
+          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+          console.log(response.data);
+          console.log(document.cookie);
           vm.$router.push("/admin/products");
-          // this.$bus.$emit("message:push", response.data.message, "success");
         } else {
           this.$bus.$emit("message:push", response.data.message, "danger");
         }
-        this.loading = false;
+        vm.loading = false;
       });
     }
   }
